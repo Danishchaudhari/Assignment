@@ -1,6 +1,3 @@
-/*Write a C program that accepts two integers from the user and performs 
-arithmetic, relational, and logical operations on them. Display the results. */
-
 #include <stdio.h>
 #include <conio.h>
 
@@ -22,8 +19,8 @@ int main()
     printf("Multiplication (a * b) = %d\n", a * b);
     if(b != 0) 
 	{
-        printf("Division (a / b)       = %d\n", a / b);
-        printf("Modulus (a %% b)        = %d\n", a % b);
+        printf("Division (a / b)= %d\n", a / b);
+        printf("Modulus (a %% b)= %d\n", a % b);
     } 
 	else 
 	{

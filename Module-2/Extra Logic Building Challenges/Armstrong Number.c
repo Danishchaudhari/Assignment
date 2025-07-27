@@ -2,9 +2,11 @@
 #include <math.h>
 
 // Function to count digits
-int countDigits(int num) {
+int countDigits(int num) 
+{
     int count = 0;
-    while (num != 0) {
+    while (num != 0) 
+	{
         num /= 10;
         count++;
     }
@@ -12,10 +14,12 @@ int countDigits(int num) {
 }
 
 // Function to check Armstrong number
-int isArmstrong(int num) {
+int isArmstrong(int num) 
+{
     int sum = 0, temp = num, digit, power = countDigits(num);
 
-    while (temp != 0) {
+    while (temp != 0) 
+	{
         digit = temp % 10;
         sum += pow(digit, power);
         temp /= 10;
@@ -24,11 +28,14 @@ int isArmstrong(int num) {
     return (sum == num);
 }
 
-int main() {
+int main() 
+{
     printf("Armstrong numbers between 1 and 1000:\n");
 
-    for (int i = 1; i <= 1000; i++) {
-        if (isArmstrong(i)) {
+    for(int i=1;i<=1000;i++)
+	{
+        if (isArmstrong(i)) 
+		{
             printf("%d ", i);
         }
     }

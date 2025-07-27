@@ -14,7 +14,7 @@ void main()
 	
 	printf("\n original value :%d",no);
 	
-	*ptr=25;
+	*ptr=20;
 	
 	printf("\n modified value :%d",no);
 	

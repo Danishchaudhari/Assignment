@@ -1,8 +1,3 @@
-/*Write a C program that takes two strings from the user and concatenates them 
-using strcat(). Display the concatenated string and its length using 
-strlen(). */
-
-
 #include <stdio.h>
 #include <conio.h>
 #include <string.h>

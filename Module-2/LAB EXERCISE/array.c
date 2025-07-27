@@ -1,12 +1,8 @@
-/*Write a C program that stores 5 integers in a one-dimensional array and prints 
-them. Extend this to handle a two-dimensional array (3x3 matrix) and 
-calculate the sum of all elements.*/
-
-
 #include<stdio.h>
 #include<conio.h>
 
-int main() {
+int main() 
+{
     
     int arr[5],i,j;
     printf("Enter 5 integers for 1D array:\n");
