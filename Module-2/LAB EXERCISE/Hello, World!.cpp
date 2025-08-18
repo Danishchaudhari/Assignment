@@ -1,7 +1,8 @@
-#include <stdio.h>
-
-int main() 
+#include<stdio.h>
+#include<conio.h>
+   void main()
 {
-    printf("\n Hello, World!");
-    return 0;
+	printf("hello");
+	
+	getch();
 }
