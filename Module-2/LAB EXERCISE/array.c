@@ -1,8 +1,7 @@
 #include<stdio.h>
 #include<conio.h>
 
-int main() 
-{
+int main() {
     
     int arr[5],i,j;
     printf("Enter 5 integers for 1D array:\n");

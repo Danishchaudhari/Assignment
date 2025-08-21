@@ -19,8 +19,8 @@ int main()
     printf("Multiplication (a * b) = %d\n", a * b);
     if(b != 0) 
 	{
-        printf("Division (a / b)= %d\n", a / b);
-        printf("Modulus (a %% b)= %d\n", a % b);
+        printf("Division (a / b)       = %d\n", a / b);
+        printf("Modulus (a %% b)        = %d\n", a % b);
     } 
 	else 
 	{
