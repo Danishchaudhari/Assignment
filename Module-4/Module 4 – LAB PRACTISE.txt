@@ -1,0 +1,437 @@
+Module 4 – Introduction to DBMS
+
+1.-------------------------------------------------------------------Introduction to SQL------------------------------------------------------------------
+ 
+Lab 1: Ans
+create  database		:-	CREATE DATABASE school_db
+
+create  table			:-	CREATE TABLE student(student_id int PRIMARY KEY AUTO_INCREMENT,student_name varchar(100),age int,class 						        varchar(100),address varchar(100))
+
+Lab 2 :Ans
+insert 5 record			:-	INSERT INTO student(student_name,age,class,address) VALUES ('danish','21','MBA','Morbi');
+						INSERT INTO student(student_name,age,class,address) VALUES ('mukhtar','18','science','Rajkot');
+						INSERT INTO student(student_name,age,class,address) VALUES ('karish','22','MCA','Surat');
+						INSERT INTO student(student_name,age,class,address) VALUES ('dev','19','b.com','Ahemdabad');
+						INSERT INTO student(student_name,age,class,address) VALUES ('ravi','18','BBA','Morbi');
+
+Retrive all data		:-	SELECT * from student;
+
+2. ----------------------------------------------------------------SQL Syntax-----------------------------------------------------------------------------
+
+Lab 1: Ans
+Retrive a special colume	:-	SELECT student_name,age FROM student 
+
+Lab 2 :Ans
+Retrieve all students whose age is greater than 10 	:-	SELECT * from student WHERE age>10
+
+3.-----------------------------------------------------------SQL Constraints------------------------------------------------------------------------------
+
+Lab 1:Ans
+Create table 		:- 	CREATE TABLE teacher(teacher_id int PRIMARY KEY AUTO_INCREMENT,teacher_name varchar(100) NOT null,subject 						varchar(100) NOT null,email varchar(100) UNIQUE)
+
+Lab 2 :Ans
+Add colume		:-      ALTER TABLE students ADD COLUMN teacher_id int;
+
+Insert record 		:- 	UPDATE STUDENT set teacher_id =1 WHERE student_id = 1;
+					UPDATE STUDENT set teacher_id =2 WHERE student_id = 2;
+					UPDATE STUDENT set teacher_id =1 WHERE student_id = 3;
+					UPDATE STUDENT set teacher_id =2 WHERE student_id = 4;
+					UPDATE STUDENT set teacher_id =1 WHERE student_id = 5;
+
+Add foregin key	:-	ALTER TABLE student ADD INDEX(teacher_id);
+
+4.--------------------------Main SQL Commands and Sub-commands (DDL) -------------------------------------------------------------------------------------
+
+Lab 1:Ans
+create table	 	:-	CREATE TABLE courses(course_id int PRIMARY KEY AUTO_INCREMENT,course_name varchar(100),course_credit 							varchar(100))
+
+Lab 2 :Ans
+create database 	:-	CREATE DATABASE  university_db
+
+5.-----------------------------------ALTER Command--------------------------------------------------------------------------------------------------------
+
+Lab 1:Ans
+Add colum 		:- 	 ALTER TABLE courses ADD COLUMN course_duration varchar(100) 	
+
+Lab 2 :Ans
+remove colum		:-  	 ALTER TABLE courses DROP COLUMN course_credit
+
+6.----------------------------------DROP Command-----------------------------------------------------------------------------------------------------------
+
+Lab 1:Ans
+drop table(student)		:- 	DROP TABLE student
+
+Lab 2 :Ans
+drop table(teacher)		:- 	DROP TABLE teacher
+
+7.----------------------------------Data Manipulation Language (DML)--------------------------------------------------------------------------------------
+
+Lab 1:Ans
+insert record 	   :- 	INSERT INTO courses(course_name,course_duration) VALUES('python','1 year');
+				INSERT INTO courses(course_name,course_duration) VALUES('designing','2 year');
+				INSERT INTO courses(course_name,course_duration) VALUES('java','3 year');
+
+Lab 2 :Ans		
+update record	   :-	UPDATE courses SET course_duration = '7year' WHERE course_id = 2
+
+Lab 3 :Ans
+delete record 	   :-	DELETE FROM courses WHERE course_id = 3
+
+8.-----------------------------------------------------Data Query Language (DQL) ----------------------------------------------------------------------
+
+Lab 1 :Ans
+select all data 	:-	SELECT * from courses
+
+Lab 2 :Ans
+Order by 		:-	SELECT * FROM courses ORDER BY course_duration DESC
+
+Lab 3 :Ans
+Limit 		:-	SELECT * FROM courses LIMIT 2
+
+9.---------------------------------------------------------------- Data Control Language (DCL)-------------------------------------------------------------
+
+Lab 1: Create two users and grant SELECT to user1
+
+CREATE USER 'user1'@'localhost' IDENTIFIED BY 'password1';
+CREATE USER 'user2'@'localhost' IDENTIFIED BY 'password2';
+
+GRANT SELECT ON your_database.courses TO 'user1'@'localhost';
+FLUSH PRIVILEGES;
+
+Lab 2: Revoke INSERT from user1 and give it to user2
+
+REVOKE INSERT ON your_database.courses FROM 'user1'@'localhost';
+GRANT INSERT ON your_database.courses TO 'user2'@'localhost';
+FLUSH PRIVILEGES;
+
+10.--------------------------------------------------------- Transaction Control Language (TCL)------------------------------------------------------------
+
+Lab 1: Insert rows and use COMMIT
+-- Start a transaction
+START TRANSACTION;
+
+-- Insert a few rows into courses table
+INSERT INTO courses (course_id, course_name, price)
+VALUES
+(101, 'Physics', 5000),
+(102, 'Chemistry', 4500);
+
+-- Save the changes
+COMMIT;
+
+Lab 2: Insert rows and use ROLLBACK
+-- Start a new transaction
+START TRANSACTION;
+
+-- Insert more rows
+INSERT INTO courses (course_id, course_name, price)
+VALUES
+(103, 'Biology', 4000),
+(104, 'Mathematics', 5500);
+
+-- Undo the last insert operation
+ROLLBACK;
+
+Lab 3: Use SAVEPOINT and roll back specific changes
+-- Start a transaction
+START TRANSACTION;
+
+-- Create a savepoint before update
+SAVEPOINT before_update;
+
+-- Update some courses
+UPDATE courses SET price = price + 500 WHERE course_id = 101;
+UPDATE courses SET price = price + 1000 WHERE course_id = 102;
+
+-- Rollback to savepoint (undo updates after savepoint)
+ROLLBACK TO before_update;
+
+-- Commit the remaining transaction
+COMMIT;
+
+11.---------------------------------------------------------------------SQL Joins--------------------------------------------------------------------
+
+Lab 1 :Ans
+Create two tables		:-	 departments and employees. 
+
+departments 			:-	CREATE TABLE departments(departments_id int PRIMARY KEY AUTO_INCREMENT,d_name varchar(100))
+employees    			:-	CREATE TABLE employees(employees_id int PRIMARY KEY AUTO_INCREMENT,employees_name 										varchar(100),departments_id int)
+
+add forign key			:-	ALTER TABLE employees ADD INDEX(departments_id)
+
+insert record departments	:-	INSERT INTO departments(d_name) VALUES('computer science'),('IT'),('HR')
+insert record employees	:-	INSERT INTO employees(employees_id,employees_name,departments_id) 							   								VALUES('101','Anjli','1'),('102','dhiraj','2'),('103','bansi','1'),('104','bhavya','3'),('105','diya','2')
+
+
+inner join 				:-	SELECT * FROM departments d JOIN employees e ON d.departments_id = e.departments_id
+
+left join 				:-	SELECT * FROM departments d LEFT JOIN employees e ON d.departments_id = e.departments_id
+
+12.-----------------------------------------------------------------------SQL Group By----------------------------------------------------------------
+
+Lab 1: Count of Employees in Each Department
+
+SELECT department_id, COUNT(employee_id) AS total_employees FROM employees GROUP BY department_id;
+
+Lab 2: Average Salary in Each Department 
+
+SELECT department_id, AVG(salary) AS average_salary FROM employees GROUP BY department_id;
+
+13.-------------------------------------------------------------------SQL Stored Procedure-----------------------------------------------------------
+
+Lab 1: Stored Procedure — Retrieve Employees by Department
+
+DELIMITER //
+
+CREATE PROCEDURE GetEmployeesByDepartment(IN dept_id INT)
+BEGIN
+    SELECT * 
+    FROM employees
+    WHERE department_id = dept_id;
+END //
+
+DELIMITER ;
+
+Lab 2: Stored Procedure — Retrieve Course Details by Course ID
+DELIMITER //
+
+CREATE PROCEDURE GetCourseDetails(IN cid INT)
+BEGIN
+    SELECT *
+    FROM courses
+    WHERE course_id = cid;
+END //
+
+DELIMITER ;
+
+14.--------------------------------------------------------------SQL View-------------------------------------------------------------------------------
+
+ Lab 1: Create a View (Employees + Department Names)
+
+CREATE VIEW employee_with_departments AS SELECT e.employee_id,e.employee_name, d.department_name,e.salary FROM employees e
+JOIN departments d ON e.department_id = d.department_id;
+
+Lab 2: Modify the View (Exclude Salary < 50,000)
+
+CREATE OR REPLACE VIEW employee_with_departments AS SELECT e.employee_id,e.employee_name,d.department_name,e.salary FROM employees e JOIN departments d ON e.department_id = d.department_id WHERE e.salary >= 50000;
+
+
+15.-----------------------------------------------------------------SQL Triggers----------------------------------------------------------------------
+
+Lab 1: Trigger to Log New Employee Additions
+
+DELIMITER $$
+
+CREATE TRIGGER after_employee_insert
+AFTER INSERT ON employees
+FOR EACH ROW
+BEGIN
+    INSERT INTO employee_log (employee_id, action)
+    VALUES (NEW.employee_id, 'New Employee Added');
+END $$
+
+DELIMITER ;
+
+Lab 2: Trigger to Update Last Modified Timestamp
+
+DELIMITER //
+
+CREATE TRIGGER before_employee_update
+BEFORE UPDATE ON employees
+FOR EACH ROW
+BEGIN
+    SET NEW.last_modified = CURRENT_TIMESTAMP;
+END //
+
+DELIMITER ;
+
+
+16.-------------------------------------------------------------Introduction to PL/SQL---------------------------------------------------------------
+
+Lab 1: Total employees
+
+DELIMITER //
+CREATE PROCEDURE GetTotalEmployees()
+BEGIN
+    SELECT COUNT(emp_id) AS total_employees FROM employees;
+END //
+DELIMITER ;
+
+
+
+Lab 2: Total sales
+
+DELIMITER //
+CREATE PROCEDURE GetTotalSales()
+BEGIN
+    SELECT SUM(amout) AS total_sales FROM orders;
+END //
+DELIMITER ;
+
+
+17.------------------------------------------------------------------ PL/SQL Control Structures-----------------------------------------------------------
+
+Lab 1: Write a PL/SQL block using an IF-THEN condition to check the department of an employee. 
+
+DELIMITER //
+CREATE PROCEDURE CheckDepartment(IN emp_id INT)
+BEGIN
+    DECLARE dept_name VARCHAR(50);
+
+    SELECT department_name INTO dept_name
+    FROM employees
+    WHERE employee_id = emp_id;
+
+    IF dept_name = 'Sales' THEN
+        SELECT 'Employee works in Sales department.' AS message;
+    ELSE
+        SELECT 'Employee works in another department.' AS message;
+    END IF;
+END //
+DELIMITER ;
+
+
+Lab 2: Use a FOR LOOP to iterate through employee records and display their names. 
+
+DELIMITER //
+CREATE PROCEDURE ShowEmployeeNames()
+BEGIN
+    DECLARE done INT DEFAULT FALSE;
+    DECLARE emp_name VARCHAR(50);
+
+    DECLARE emp_cursor CURSOR FOR SELECT first_name FROM employees;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+    OPEN emp_cursor;
+    read_loop: LOOP
+        FETCH emp_cursor INTO emp_name;
+        IF done THEN
+            LEAVE read_loop;
+        END IF;
+        SELECT emp_name AS 'Employee Name';
+    END LOOP;
+    CLOSE emp_cursor;
+END //
+DELIMITER ;
+
+18.-------------------------------------------------------------- SQL Cursors ---------------------------------------------------------------------
+
+Lab 1: Write a PL/SQL block using an explicit cursor to retrieve and display employee details. 
+
+DELIMITER //
+CREATE PROCEDURE GetEmployeeDetails()
+BEGIN
+    DECLARE done INT DEFAULT FALSE;
+    DECLARE v_emp_id INT;
+    DECLARE v_first_name VARCHAR(50);
+    DECLARE v_dept VARCHAR(50);
+
+    -- Declare cursor
+    DECLARE emp_cursor CURSOR FOR
+        SELECT employee_id, first_name, department_name FROM employees;
+
+    -- Handle end of cursor
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+    OPEN emp_cursor;
+
+    read_loop: LOOP
+        FETCH emp_cursor INTO v_emp_id, v_first_name, v_dept;
+        IF done THEN
+            LEAVE read_loop;
+        END IF;
+        SELECT CONCAT('ID: ', v_emp_id, ', Name: ', v_first_name, ', Dept: ', v_dept) AS Employee_Details;
+    END LOOP;
+
+    CLOSE emp_cursor;
+END //
+DELIMITER ;
+
+
+Lab 2: Create a cursor to retrieve all courses and display them one by one. 
+
+DELIMITER //
+
+CREATE PROCEDURE show_all_courses()
+BEGIN
+    -- Declare variables
+    DECLARE v_id INT;
+    DECLARE v_name VARCHAR(50);
+    DECLARE v_price DECIMAL(10,2);
+    DECLARE done INT DEFAULT FALSE;
+
+    -- Cursor
+    DECLARE course_cursor CURSOR FOR 
+        SELECT course_id, course_name, price FROM courses;
+
+    -- Handler
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+    OPEN course_cursor;
+
+    course_loop: LOOP
+        FETCH course_cursor INTO v_id, v_name, v_price;
+
+        IF done THEN 
+            LEAVE course_loop;
+        END IF;
+
+        -- Display output
+        SELECT CONCAT('Course ID: ', v_id, ', Name: ', v_name, ', Price: ', v_price);
+    END LOOP;
+
+    CLOSE course_cursor;
+END //
+
+DELIMITER ;
+
+
+19.---------------------------------------------------------------  Rollback and Commit Savepoint-------------------------------------------------------
+
+Lab 1: Perform a transaction where you create a savepoint, insert records, then rollback to the savepoint.
+
+-- Start transaction
+START TRANSACTION;
+
+-- First insert (will remain)
+INSERT INTO employees (employee_id, employee_name, department_id, salary) 
+VALUES (301, 'Karan', 3, 55000);
+
+-- Set savepoint
+SAVEPOINT sp1;
+
+-- Second insert (will be rolled back)
+INSERT INTO employees (employee_id, employee_name, department_id, salary) 
+VALUES (302, 'Megha', 2, 50000);
+
+-- Rollback to savepoint (Megha is removed)
+ROLLBACK TO sp1;
+
+-- Commit (only Karan is saved)
+COMMIT;
+
+
+Lab 2: Commit part of a transaction after using a savepoint and then rollback the remaining changes.
+
+-- Start transaction
+START TRANSACTION;
+
+-- First insert (will remain)
+INSERT INTO employees (employee_id, employee_name, department_id, salary) 
+VALUES (301, 'Karan', 3, 55000);
+
+-- Set savepoint
+SAVEPOINT sp1;
+
+-- Second insert (will be rolled back)
+INSERT INTO employees (employee_id, employee_name, department_id, salary) 
+VALUES (302, 'Megha', 2, 50000);
+
+-- Rollback to savepoint (Megha is removed)
+ROLLBACK TO sp1;
+
+-- Commit (only Karan is saved)
+COMMIT;
+
+
+
